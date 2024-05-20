@@ -1,0 +1,32 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  app.setGlobalPrefix('api/v1');
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      transformOptions: { enableImplicitConversion: true },
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      forbidUnknownValues: true,
+    }),
+  );
+
+  const configService = app.get(ConfigService);
+
+  // app.useGlobalFilters(new CustomExceptionFilter());
+
+  app.enableCors({
+    credentials: true,
+    origin: '*',
+  });
+  
+  await app.listen(3000);
+}
+bootstrap();

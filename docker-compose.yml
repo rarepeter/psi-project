@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16.2-alpine3.19
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=psi
+    ports:
+      - 5430:5432
+    networks:
+      - psi
+
+  backend:
+    pull_policy: never
+    image: psi-backend:latest
+    command: npm run dev
+    restart: always
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /usr/src/app
+          ignore:
+            - node_modules
+            - files
+        - action: rebuild
+          path: package.json
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+        max_attempts: 3
+    container_name: psi-backend
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - POSTGRES_CONNECTION_URI=postgresql://postgres:password@db:5432/psi
+      - NODE_ENV=dev
+    ports:
+      - 3000:3000
+    networks:
+      - psi
+
+networks:
+  psi:
+    name: psi-network
+    driver: bridge
