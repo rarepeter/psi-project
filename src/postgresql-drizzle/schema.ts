@@ -91,6 +91,7 @@ export const reservationLines = pgTable(reservationLinesTableName, {
   idLinieRezervare: serial('id').primaryKey(),
   idRezervare: serial('id_rezervare').references(
     () => reservations.idRezervare,
+    { onDelete: 'cascade', onUpdate: 'cascade' },
   ),
   checkInDate: date('check_in_date').notNull(),
   checkOutDate: date('check_out_date').notNull(),
@@ -118,3 +119,13 @@ export const clients = pgTable(clientsTableName, {
 export const reservationsRelations = relations(reservations, ({ many }) => ({
   reservationLines: many(reservationLines),
 }));
+
+export const reservationLinesRelations = relations(
+  reservationLines,
+  ({ one }) => ({
+    reservation: one(reservations, {
+      fields: [reservationLines.idRezervare],
+      references: [reservations.idRezervare],
+    }),
+  }),
+);

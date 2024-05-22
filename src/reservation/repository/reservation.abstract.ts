@@ -1,4 +1,7 @@
-import { CreateReservationDto } from '../dto/reservation.dto';
+import {
+  CreateReservationDto,
+  ModifyReservationDto,
+} from '../dto/reservation.dto';
 import {
   Reservation,
   ReservationWithReservationLines,
@@ -13,6 +16,7 @@ export abstract class ReservationAbstractRepository {
   ): Promise<ReservationWithReservationLines>;
   abstract update(
     idRezervare: Reservation['idRezervare'],
+    modifyReservationDto: ModifyReservationDto,
   ): Promise<ReservationWithReservationLines>;
   abstract delete(
     idRezervare: Reservation['idRezervare'],

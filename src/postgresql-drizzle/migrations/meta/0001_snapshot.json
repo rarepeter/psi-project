@@ -1,0 +1,558 @@
+{
+  "id": "2a17c72c-8ded-4b61-9e05-ad50c157e7c3",
+  "prevId": "5c6dd0c3-c4e7-4d6d-bfa7-8dab10463228",
+  "version": "6",
+  "dialect": "postgresql",
+  "tables": {
+    "public.check_ins": {
+      "name": "check_ins",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nume": {
+          "name": "nume",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prenume": {
+          "name": "prenume",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adresa": {
+          "name": "adresa",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "localitate": {
+          "name": "localitate",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_nasterii": {
+          "name": "data_nasterii",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "check_in_date": {
+          "name": "check_in_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cetatenie": {
+          "name": "cetatenie",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tip_act_identitate": {
+          "name": "tip_act_identitate",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nr_act_identitate": {
+          "name": "nr_act_identitate",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_angajat": {
+          "name": "id_angajat",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_linie_rezervare": {
+          "name": "id_linie_rezervare",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "check_ins_id_linie_rezervare_linii_rezervari_id_fk": {
+          "name": "check_ins_id_linie_rezervare_linii_rezervari_id_fk",
+          "tableFrom": "check_ins",
+          "tableTo": "linii_rezervari",
+          "columnsFrom": [
+            "id_linie_rezervare"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.bonuri_fiscale": {
+      "name": "bonuri_fiscale",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "data_emitere": {
+          "name": "data_emitere",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "total_bon_fiscal": {
+          "name": "total_bon_fiscal",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_rezervare": {
+          "name": "id_rezervare",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "bonuri_fiscale_id_rezervare_rezervari_id_fk": {
+          "name": "bonuri_fiscale_id_rezervare_rezervari_id_fk",
+          "tableFrom": "bonuri_fiscale",
+          "tableTo": "rezervari",
+          "columnsFrom": [
+            "id_rezervare"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.clienti": {
+      "name": "clienti",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nr_telefon": {
+          "name": "nr_telefon",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "localitate": {
+          "name": "localitate",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "adresa": {
+          "name": "adresa",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "judet": {
+          "name": "judet",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nume": {
+          "name": "nume",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prenume": {
+          "name": "prenume",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cnp": {
+          "name": "cnp",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "serie_si_nr_document": {
+          "name": "serie_si_nr_document",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cui": {
+          "name": "cui",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "denumire_firma": {
+          "name": "denumire_firma",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nr_reg_comert": {
+          "name": "nr_reg_comert",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "clienti_nr_telefon_unique": {
+          "name": "clienti_nr_telefon_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nr_telefon"
+          ]
+        },
+        "clienti_email_unique": {
+          "name": "clienti_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        },
+        "clienti_cnp_unique": {
+          "name": "clienti_cnp_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "cnp"
+          ]
+        },
+        "clienti_cui_unique": {
+          "name": "clienti_cui_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "cui"
+          ]
+        },
+        "clienti_nr_reg_comert_unique": {
+          "name": "clienti_nr_reg_comert_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nr_reg_comert"
+          ]
+        }
+      }
+    },
+    "public.facturi": {
+      "name": "facturi",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "data_emitere": {
+          "name": "data_emitere",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "data_scadenta": {
+          "name": "data_scadenta",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_factura": {
+          "name": "total_factura",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_rezervare": {
+          "name": "id_rezervare",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "facturi_id_rezervare_rezervari_id_fk": {
+          "name": "facturi_id_rezervare_rezervari_id_fk",
+          "tableFrom": "facturi",
+          "tableTo": "rezervari",
+          "columnsFrom": [
+            "id_rezervare"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.linii_rezervari": {
+      "name": "linii_rezervari",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_rezervare": {
+          "name": "id_rezervare",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "check_in_date": {
+          "name": "check_in_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "check_out_date": {
+          "name": "check_out_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nr_persoane": {
+          "name": "nr_persoane",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nr_persoane_mic_dejun": {
+          "name": "nr_persoane_mic_dejun",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_camera": {
+          "name": "id_camera",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "linii_rezervari_id_rezervare_rezervari_id_fk": {
+          "name": "linii_rezervari_id_rezervare_rezervari_id_fk",
+          "tableFrom": "linii_rezervari",
+          "tableTo": "rezervari",
+          "columnsFrom": [
+            "id_rezervare"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "linii_rezervari_id_camera_camere_id_fk": {
+          "name": "linii_rezervari_id_camera_camere_id_fk",
+          "tableFrom": "linii_rezervari",
+          "tableTo": "camere",
+          "columnsFrom": [
+            "id_camera"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.rezervari": {
+      "name": "rezervari",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "observatii": {
+          "name": "observatii",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "data_intocmire": {
+          "name": "data_intocmire",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "statut_plata": {
+          "name": "statut_plata",
+          "type": "statut_plata_rezervare",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_client": {
+          "name": "id_client",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rezervari_id_client_clienti_id_fk": {
+          "name": "rezervari_id_client_clienti_id_fk",
+          "tableFrom": "rezervari",
+          "tableTo": "clienti",
+          "columnsFrom": [
+            "id_client"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.camere": {
+      "name": "camere",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "etaj": {
+          "name": "etaj",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_tip_camera": {
+          "name": "id_tip_camera",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "camere_id_tip_camera_tipuri_camere_id_fk": {
+          "name": "camere_id_tip_camera_tipuri_camere_id_fk",
+          "tableFrom": "camere",
+          "tableTo": "tipuri_camere",
+          "columnsFrom": [
+            "id_tip_camera"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.tipuri_camere": {
+      "name": "tipuri_camere",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "denumire": {
+          "name": "denumire",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nr_max_persoane": {
+          "name": "nr_max_persoane",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tarif_per_noapte": {
+          "name": "tarif_per_noapte",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "public.statut_plata_rezervare": {
+      "name": "statut_plata_rezervare",
+      "schema": "public",
+      "values": [
+        "in_asteptare",
+        "platit"
+      ]
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

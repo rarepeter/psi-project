@@ -46,7 +46,13 @@ export function IsLaterOrEqualToDate(
   };
 }
 
-export class CreateReservationDto implements Partial<Reservation> {
+export class CreateReservationDto
+  implements
+    Pick<
+      Reservation,
+      'observatii' | 'dataIntocmire' | 'statutPlata' | 'idClient'
+    >
+{
   @IsString()
   @MaxLength(observatiiMaxLength)
   observatii: string;
@@ -67,7 +73,72 @@ export class CreateReservationDto implements Partial<Reservation> {
   reservationLines: CreateReservationLineDto[];
 }
 
-export class CreateReservationLineDto implements Partial<ReservationLine> {
+export class CreateReservationLineDto
+  implements
+    Pick<
+      ReservationLine,
+      | 'checkInDate'
+      | 'checkOutDate'
+      | 'nrPersoane'
+      | 'nrPersoaneMicDejun'
+      | 'idCamera'
+    >
+{
+  @IsDateString()
+  checkInDate: string;
+
+  @IsDateString()
+  @IsLaterOrEqualToDate('checkInDate')
+  checkOutDate: string;
+
+  @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
+  nrPersoane: number;
+
+  @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
+  nrPersoaneMicDejun: number;
+
+  @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
+  idCamera: number;
+}
+
+export class ModifyReservationDto
+  implements
+    Pick<
+      Reservation,
+      'observatii' | 'dataIntocmire' | 'statutPlata' | 'idClient'
+    >
+{
+  @IsString()
+  @MaxLength(observatiiMaxLength)
+  observatii: string;
+
+  @IsDateString()
+  dataIntocmire: string;
+
+  @IsString()
+  @IsIn(allReservationPayStatuses)
+  statutPlata: Reservation['statutPlata'];
+
+  @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 0 })
+  idClient: Client['idClient'];
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ModifyReservationLineDto)
+  reservationLines: ModifyReservationLineDto[];
+}
+
+export class ModifyReservationLineDto
+  implements
+    Pick<
+      ReservationLine,
+      | 'checkInDate'
+      | 'checkOutDate'
+      | 'nrPersoane'
+      | 'nrPersoaneMicDejun'
+      | 'idCamera'
+    >
+{
   @IsDateString()
   checkInDate: string;
 
